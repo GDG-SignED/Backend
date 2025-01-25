@@ -21,8 +21,7 @@ public class Quiz {
     private String testContent;
 
     @Builder
-    public Quiz(Long testId, String answerImage, String testContent){
-        this.testId = testId;
+    public Quiz(String answerImage, String testContent){
         this.answerImage = answerImage;
         this.testContent = testContent;
     }

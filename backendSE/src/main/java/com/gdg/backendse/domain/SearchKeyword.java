@@ -16,15 +16,14 @@ public class SearchKeyword {
     @Column(name = "keyword_id")
     private int keywordId;
 
-    @Column(name = "keyword_content")
+    @Column(name = "keyword_content", nullable = false)
     private String keywordContent;
 
-    @Column(name = "lecture_time")
+    @Column(name = "lecture_time", nullable = true)
     private Timestamp lectureTime;
 
     @Builder
-    public SearchKeyword(int keywordId, String keywordContent, Timestamp lectureTime){
-        this.keywordId = keywordId;
+    public SearchKeyword(String keywordContent, Timestamp lectureTime){
         this.keywordContent = keywordContent;
         this.lectureTime = lectureTime;
     }
