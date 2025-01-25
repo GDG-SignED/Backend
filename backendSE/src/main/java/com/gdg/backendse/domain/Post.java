@@ -17,25 +17,25 @@ public class Post {
     private Long postId;
 
     @Column(nullable = false)
-    private String title; // 게시글 제목
+    private String title;
 
     @Column(nullable = false)
-    private String content; // 게시글 내용
+    private String content; //내용
 
-    private int views; // 조회수
+    private int views; //조회수
 
-    private int commentCount; // 댓글 수
+    private int commentCount; //댓글 수
 
-    private int likeCount; // 찜 수
+    private int likeCount; //찜 수
 
     @Column(name = "created_at")
-    private LocalDateTime createdAt; // 작성 시간
+    private LocalDateTime createdAt;
 
     @Column(name = "updated_at")
     private LocalDateTime updatedAt; // 수정 시간
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "member_id") // 작성자 (FK)
+    @JoinColumn(name = "member_id")
     private Member author;
 
     @Builder

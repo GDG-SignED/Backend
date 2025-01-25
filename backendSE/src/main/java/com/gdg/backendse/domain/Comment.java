@@ -17,17 +17,17 @@ public class Comment {
     private Long commentId;
 
     @Column(nullable = false)
-    private String content; // 댓글 내용
+    private String content; //내용
 
     @Column(name = "created_at")
-    private LocalDateTime createdAt; // 댓글 작성 시간
+    private LocalDateTime createdAt;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "member_id") // 댓글 작성자 (FK)
+    @JoinColumn(name = "member_id")
     private Member author;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "post_id") // 게시글 (FK)
+    @JoinColumn(name = "post_id")
     private Post post;
 
     @Builder

@@ -14,7 +14,7 @@ public class SearchKeyword {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "keyword_id")
-    private int keywordId;
+    private Long keywordId;
 
     @Column(name = "keyword_content")
     private String keywordContent;

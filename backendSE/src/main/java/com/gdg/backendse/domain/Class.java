@@ -15,19 +15,19 @@ public class Class {
     private Long classId;
 
     @Column(nullable = false)
-    private String title; // 클래스 제목
+    private String title;
 
     @Column(nullable = false)
-    private String content; // 클래스 내용
+    private String content; //내용
 
     @Column(nullable = false)
-    private int views; // 조회수
+    private int views; //조회수
 
     @Column(name = "image_path")
-    private String imagePath; // 이미지 경로
+    private String imagePath;
 
     @Column(name = "video_path")
-    private String videoPath; // 영상 경로
+    private String videoPath;
 
     @Builder
     public Class(Long classId, String title, String content, int views, String imagePath, String videoPath) {
