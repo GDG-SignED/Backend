@@ -20,9 +20,14 @@ public class Quiz {
     @Column(name = "test_content")
     private String testContent;
 
+    @ManyToOne(fetch = FetchType.LAZY) //퀴즈:회원_다대일
+    @JoinColumn(name = "member_id")
+    private Member member;
+
     @Builder
     public Quiz(String answerImage, String testContent){
         this.answerImage = answerImage;
         this.testContent = testContent;
+        this.member = member;
     }
 }

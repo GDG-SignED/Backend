@@ -34,13 +34,15 @@ public class Post {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt; // 수정 시간
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY) //게시글:회원_다대일
     @JoinColumn(name = "member_id")
     private Member author;
 
+    @OneToMany(mappedBy = "post", fetch = FetchType.LAZY) //게시글:댓글_일대다
+    private List<Comment> comments = new ArrayList<>();
+
     @Builder
     public Post(Long postId, String title, String content, int views, int commentCount, int likeCount, LocalDateTime createdAt, LocalDateTime updatedAt, Member author) {
-        this.postId = postId;
         this.title = title;
         this.content = content;
         this.views = views;

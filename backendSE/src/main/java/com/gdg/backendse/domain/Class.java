@@ -29,13 +29,17 @@ public class Class {
     @Column(name = "video_path")
     private String videoPath;
 
+    @ManyToOne(fetch = FetchType.LAZY) // 클래스:회원_다대일
+    @JoinColumn(name = "member_id")
+    private Member member;
+
     @Builder
     public Class(Long classId, String title, String content, int views, String imagePath, String videoPath) {
-        this.classId = classId;
         this.title = title;
         this.content = content;
         this.views = views;
         this.imagePath = imagePath;
         this.videoPath = videoPath;
+        this.member = member;
     }
 }

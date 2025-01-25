@@ -34,6 +34,21 @@ public class Member {
     @Column(nullable = false)
     private String profile;
 
+    @OneToMany(mappedBy = "member", fetch = FetchType.LAZY) //회원:검색어_일대다
+    private List<SearchKeyword> searchKeywords = new ArrayList<>();
+
+    @OneToMany(mappedBy = "member", fetch = FetchType.LAZY) //회원:퀴즈_일대다
+    private List<Quiz> quizzes = new ArrayList<>();
+
+    @OneToMany(mappedBy = "member", fetch = FetchType.LAZY) //회원:클래스_일대다
+    private List<Class> classes = new ArrayList<>();
+
+    @OneToMany(mappedBy = "member", fetch = FetchType.LAZY) //회원:게시글_일대다
+    private List<Post> posts = new ArrayList<>();
+
+    @OneToMany(mappedBy = "member", fetch = FetchType.LAZY) //회원:댓글_일대다
+    private List<Comment> comments = new ArrayList<>();
+
     @Builder
     public Member(String name, String nickname, String email, LoginMethod loginMethod,int remainingTest, String profile){
         this.name = name;
