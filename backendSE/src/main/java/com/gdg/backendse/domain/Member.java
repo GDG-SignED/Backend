@@ -18,14 +18,15 @@ public class Member {
     @Column(nullable = false)
     private String name;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String nickname;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String email;
 
-    @Column(name = "login_method")
-    private String loginMethod;
+    @Enumerated(EnumType.STRING) // Enum 값을 문자열로 DB에 저장
+    @Column(name = "login_method", nullable = false)
+    private LoginMethod loginMethod;
 
     @Column(name = "remaining_test")
     private int remainingTest;
@@ -34,8 +35,7 @@ public class Member {
     private String profile;
 
     @Builder
-    public Member(int memberId, String name, String nickname, String email,String loginMethod,int remainingTest, String profile){
-        this.memberId = memberId;
+    public Member(String name, String nickname, String email, LoginMethod loginMethod,int remainingTest, String profile){
         this.name = name;
         this.email = email;
         this.loginMethod = loginMethod;
