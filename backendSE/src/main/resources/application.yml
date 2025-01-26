@@ -1,4 +1,6 @@
 spring:
+  security:
+    enabled: false #spring security 비활성화 설정
   datasource:
     url: ${DB_JDBC_URL}
     username: ${DB_USER}
