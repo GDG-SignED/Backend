@@ -5,6 +5,8 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import java.util.List;
+import java.util.ArrayList;
 
 @Entity
 @Getter
@@ -40,13 +42,13 @@ public class Member {
     @OneToMany(mappedBy = "member", fetch = FetchType.LAZY) //회원:퀴즈_일대다
     private List<Quiz> quizzes = new ArrayList<>();
 
-    @OneToMany(mappedBy = "member", fetch = FetchType.LAZY) //회원:클래스_일대다
-    private List<Class> classes = new ArrayList<>();
+    @OneToMany(mappedBy = "member", fetch = FetchType.LAZY) //회원:클래스(edu)_일대다
+    private List<Edu> edus = new ArrayList<>();
 
-    @OneToMany(mappedBy = "member", fetch = FetchType.LAZY) //회원:게시글_일대다
+    @OneToMany(mappedBy = "author", fetch = FetchType.LAZY) //회원:게시글_일대다
     private List<Post> posts = new ArrayList<>();
 
-    @OneToMany(mappedBy = "member", fetch = FetchType.LAZY) //회원:댓글_일대다
+    @OneToMany(mappedBy = "author", fetch = FetchType.LAZY) //회원:댓글_일대다
     private List<Comment> comments = new ArrayList<>();
 
     @Builder

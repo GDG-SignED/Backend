@@ -8,11 +8,11 @@ import lombok.NoArgsConstructor;
 @Entity
 @Getter
 @NoArgsConstructor
-public class Class {
+public class Edu {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "class_id")
-    private Long classId;
+    @Column(name = "edu_id")
+    private Long eduId;
 
     @Column(nullable = false)
     private String title;
@@ -34,7 +34,7 @@ public class Class {
     private Member member;
 
     @Builder
-    public Class(Long classId, String title, String content, int views, String imagePath, String videoPath) {
+    public Edu(Long eduId, String title, String content, int views, String imagePath, String videoPath) {
         this.title = title;
         this.content = content;
         this.views = views;
