@@ -28,7 +28,7 @@ services:
       MYSQL_ROOT_PASSWORD: 0000
       MYSQL_DATABASE: mydb
       MYSQL_USER: root
-      dMYSQL_PASSWORD: 0000
+      MYSQL_PASSWORD: 0000
     volumes:
       - db_data:/var/lib/mysql
     networks:
