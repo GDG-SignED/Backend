@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Getter
 @NoArgsConstructor
-public class Quiz {
+public class Test {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "test_id")
@@ -25,7 +25,7 @@ public class Quiz {
     private Member member;
 
     @Builder
-    public Quiz(String answerImage, String testContent){
+    public Test(String answerImage, String testContent){
         this.answerImage = answerImage;
         this.testContent = testContent;
         this.member = member;

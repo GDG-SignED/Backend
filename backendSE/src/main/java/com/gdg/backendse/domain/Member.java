@@ -17,9 +17,10 @@ public class Member {
     @Column(name = "member_id")
     private Long memberId;
 
+    @Column(nullable = false)
     private String name;
 
-    @Column(nullable = true, unique = true)
+    @Column(nullable = false, unique = true)
     private String nickname;
 
     @Column(nullable = false, unique = true)
@@ -29,7 +30,7 @@ public class Member {
     @Column(name = "login_method")
     private LoginMethod loginMethod;
 
-    @Column(name = "remaining_test")
+    @Column(name = "remaining_tests")
     private int remainingTest;
 
     private String profile;
@@ -41,7 +42,7 @@ public class Member {
     private List<SearchKeyword> searchKeywords = new ArrayList<>();
 
     @OneToMany(mappedBy = "member", fetch = FetchType.LAZY) //회원:퀴즈_일대다
-    private List<Quiz> quizzes = new ArrayList<>();
+    private List<Test> quizzes = new ArrayList<>();
 
     @OneToMany(mappedBy = "member", fetch = FetchType.LAZY) //회원:클래스(edu)_일대다
     private List<Edu> edus = new ArrayList<>();
