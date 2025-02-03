@@ -14,7 +14,7 @@ public class SearchKeyword {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "keyword_id")
-    private Long keywordId;
+    private int keywordId;
 
     @Column(name = "keyword_content", nullable = false)
     private String keywordContent;
@@ -23,8 +23,8 @@ public class SearchKeyword {
     private Timestamp lectureTime;
 
     @ManyToOne(fetch = FetchType.LAZY) //검색어:회원_다대일
-    @JoinColumn(name = "member_id")
-    private Member member;
+    @JoinColumn(name = "writer_id")
+    private Member author;
 
     @Builder
     public SearchKeyword(String keywordContent, Timestamp lectureTime){
