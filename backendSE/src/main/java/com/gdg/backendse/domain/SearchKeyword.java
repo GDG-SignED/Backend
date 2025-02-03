@@ -19,17 +19,18 @@ public class SearchKeyword {
     @Column(name = "keyword_content", nullable = false)
     private String keywordContent;
 
-    @Column(name = "lecture_time", nullable = true)
-    private Timestamp lectureTime;
+//    @Column(name = "lecture_time", nullable = true)
+//    private Timestamp lectureTime;
+
+
 
     @ManyToOne(fetch = FetchType.LAZY) //검색어:회원_다대일
     @JoinColumn(name = "member_id")
     private Member member;
 
     @Builder
-    public SearchKeyword(String keywordContent, Timestamp lectureTime){
+    public SearchKeyword(String keywordContent){
         this.keywordContent = keywordContent;
-        this.lectureTime = lectureTime;
         this.member = member;
     }
 }
