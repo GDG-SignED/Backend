@@ -12,7 +12,7 @@ public class Test {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "test_id")
-    private Long testId;
+    private int testId;
 
     @Column(name = "answer_image")
     private String answerImage;

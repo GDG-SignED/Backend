@@ -12,34 +12,29 @@ public class Edu {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "edu_id")
-    private Long eduId;
+    private int eduId;
 
-    @Column(nullable = false)
+    @Column(name = "edu_title", nullable = false)
     private String title;
 
-    @Column(nullable = false)
+    @Column(name = "edu_content", nullable = false)
     private String content; //내용
 
     @Column(nullable = false)
     private int views; //조회수
 
-    @Column(name = "image_path")
-    private String imagePath;
-
     @Column(name = "video_path")
     private String videoPath;
 
-    @ManyToOne(fetch = FetchType.LAZY) // 클래스:회원_다대일
-    @JoinColumn(name = "member_id")
-    private Member member;
+    @OneToMany(mappedBy = "edu", fetch = FetchType.LAZY) // Edu 콘텐츠:북마크_일대다
+    private List<Bookmark> bookmarks = new ArrayList<>();
+
 
     @Builder
     public Edu(Long eduId, String title, String content, int views, String imagePath, String videoPath) {
         this.title = title;
         this.content = content;
         this.views = views;
-        this.imagePath = imagePath;
         this.videoPath = videoPath;
-        this.member = member;
     }
 }

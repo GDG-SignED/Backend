@@ -15,7 +15,7 @@ public class Member {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "member_id")
-    private Long memberId;
+    private int memberId;
 
     @Column(nullable = false)
     private String name;
@@ -38,20 +38,20 @@ public class Member {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    @OneToMany(mappedBy = "member", fetch = FetchType.LAZY) //회원:검색어_일대다
+    @OneToMany(mappedBy = "author", fetch = FetchType.LAZY) //회원:댓글_일대다
+    private List<Comment> comments = new ArrayList<>();
+
+    @OneToMany(mappedBy = "author", fetch = FetchType.LAZY) //회원:검색어_일대다
     private List<SearchKeyword> searchKeywords = new ArrayList<>();
 
     @OneToMany(mappedBy = "member", fetch = FetchType.LAZY) //회원:퀴즈_일대다
-    private List<Test> quizzes = new ArrayList<>();
-
-    @OneToMany(mappedBy = "member", fetch = FetchType.LAZY) //회원:클래스(edu)_일대다
-    private List<Edu> edus = new ArrayList<>();
+    private List<Test> tests = new ArrayList<>();
 
     @OneToMany(mappedBy = "author", fetch = FetchType.LAZY) //회원:게시글_일대다
     private List<Post> posts = new ArrayList<>();
 
-    @OneToMany(mappedBy = "author", fetch = FetchType.LAZY) //회원:댓글_일대다
-    private List<Comment> comments = new ArrayList<>();
+    @OneToMany(mappedBy = "member", fetch = FetchType.LAZY) // 회원:북마크_일대다
+    private List<Bookmark> bookmarks = new ArrayList<>();
 
     @Builder
     public Member(String name, String nickname, String email, LoginMethod loginMethod,int remainingTest, String profile, Role role){
