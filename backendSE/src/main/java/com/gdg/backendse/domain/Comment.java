@@ -14,16 +14,16 @@ public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "comment_id")
-    private Long commentId;
+    private int commentId;
 
-    @Column(nullable = false)
+    @Column(name = "comment_content", nullable = false)
     private String content; //내용
 
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "member_id")
+    @JoinColumn(name = "writer_id")
     private Member author;
 
     @ManyToOne(fetch = FetchType.LAZY)
