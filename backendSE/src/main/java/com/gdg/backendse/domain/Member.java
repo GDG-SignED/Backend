@@ -27,20 +27,22 @@ public class Member {
     private String email;
 
     @Enumerated(EnumType.STRING) // Enum 값을 문자열로 DB에 저장
-    @Column(name = "login_method", nullable = false)
+    @Column(name = "login_method")
     private LoginMethod loginMethod;
 
-    @Column(name = "remaining_test")
+    @Column(name = "remaining_tests")
     private int remainingTest;
 
-    @Column(nullable = false)
     private String profile;
+
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
     @OneToMany(mappedBy = "member", fetch = FetchType.LAZY) //회원:검색어_일대다
     private List<SearchKeyword> searchKeywords = new ArrayList<>();
 
     @OneToMany(mappedBy = "member", fetch = FetchType.LAZY) //회원:퀴즈_일대다
-    private List<Quiz> quizzes = new ArrayList<>();
+    private List<Test> quizzes = new ArrayList<>();
 
     @OneToMany(mappedBy = "member", fetch = FetchType.LAZY) //회원:클래스(edu)_일대다
     private List<Edu> edus = new ArrayList<>();
@@ -52,13 +54,18 @@ public class Member {
     private List<Comment> comments = new ArrayList<>();
 
     @Builder
-    public Member(String name, String nickname, String email, LoginMethod loginMethod,int remainingTest, String profile){
+    public Member(String name, String nickname, String email, LoginMethod loginMethod,int remainingTest, String profile, Role role){
         this.name = name;
         this.email = email;
         this.loginMethod = loginMethod;
         this.remainingTest = remainingTest;
         this.nickname = nickname;
         this.profile = profile;
+        this.role = role;
     }
+
+//    public boolean isGoogleLogin() {
+//        return this.loginMethod == LoginMethod.GOOGLE;
+//    }
 }
 
