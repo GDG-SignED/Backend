@@ -30,6 +30,5 @@ public class SearchKeyword {
     public SearchKeyword(String keywordContent, Timestamp lectureTime){
         this.keywordContent = keywordContent;
         this.lectureTime = lectureTime;
-        this.member = member;
     }
 }

@@ -28,6 +28,5 @@ public class Test {
     public Test(String answerImage, String testContent){
         this.answerImage = answerImage;
         this.testContent = testContent;
-        this.member = member;
     }
 }
