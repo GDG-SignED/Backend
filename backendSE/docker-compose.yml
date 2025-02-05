@@ -4,6 +4,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    image: backendse-app
     container_name: SignED-app
     ports:
       - "8080:8080"
@@ -29,8 +30,8 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: 0000
       MYSQL_DATABASE: mydb
-      MYSQL_USER: root
-      MYSQL_PASSWORD: 0000
+#      MYSQL_USER: root
+#      MYSQL_PASSWORD: 0000
     volumes:
       - db_data:/var/lib/mysql
     networks:
