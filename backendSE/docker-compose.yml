@@ -4,31 +4,35 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    image: backendse-app
     container_name: SignED-app
     ports:
       - "8080:8080"
     environment:
       SPRING_PROFILES_ACTIVE: prod
-      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/mydb
+      SPRING_DATASOURCE_URL: ${DB_JDBC_URL}
+      MYSQL_ROOT_PASSWORD: 0
       SPRING_DATASOURCE_USERNAME: root
-      SPRING_DATASOURCE_PASSWORD: 0000
+      SPRING_DATASOURCE_PASSWORD: 0
     volumes:
       - logs:/app/logs
     depends_on:
       - db
     networks:
       - app-network
+    env_file:
+      - .env
 
   db:
     image: mysql:8.0
     container_name: SignED-mysql-container
     ports:
-      - "3306:3306"
+      - "3310:3306"
     environment:
-      MYSQL_ROOT_PASSWORD: 0000
-      MYSQL_DATABASE: mydb
-      MYSQL_USER: root
-      MYSQL_PASSWORD: 0000
+      MYSQL_ROOT_PASSWORD: 0
+      MYSQL_DATABASE: SignED
+#      MYSQL_USER: root
+#      MYSQL_PASSWORD: 0000
     volumes:
       - db_data:/var/lib/mysql
     networks:

@@ -56,10 +56,10 @@ public class Member {
     @Builder
     public Member(String name, String nickname, String email, LoginMethod loginMethod,int remainingTest, String profile, Role role){
         this.name = name;
+        this.nickname = nickname;
         this.email = email;
         this.loginMethod = loginMethod;
         this.remainingTest = remainingTest;
-        this.nickname = nickname;
         this.profile = profile;
         this.role = role;
     }
