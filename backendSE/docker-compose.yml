@@ -11,9 +11,9 @@ services:
     environment:
       SPRING_PROFILES_ACTIVE: prod
       SPRING_DATASOURCE_URL: ${DB_JDBC_URL}
-      MYSQL_ROOT_PASSWORD: 0000
+      MYSQL_ROOT_PASSWORD: 0
       SPRING_DATASOURCE_USERNAME: root
-      SPRING_DATASOURCE_PASSWORD: 0000
+      SPRING_DATASOURCE_PASSWORD: 0
     volumes:
       - logs:/app/logs
     depends_on:
@@ -29,8 +29,8 @@ services:
     ports:
       - "3310:3306"
     environment:
-      MYSQL_ROOT_PASSWORD: 0000
-      MYSQL_DATABASE: mydb
+      MYSQL_ROOT_PASSWORD: 0
+      MYSQL_DATABASE: SignED
 #      MYSQL_USER: root
 #      MYSQL_PASSWORD: 0000
     volumes:
