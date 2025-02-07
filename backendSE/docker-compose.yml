@@ -14,6 +14,8 @@ services:
       MYSQL_ROOT_PASSWORD: 0
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: 0
+      TZ: Asia/Seoul
+      LANG: C.UTF-8
     volumes:
       - logs:/app/logs
     depends_on:
@@ -30,13 +32,18 @@ services:
       - "3310:3306"
     environment:
       MYSQL_ROOT_PASSWORD: 0
-      MYSQL_DATABASE: SignED
-#      MYSQL_USER: root
-#      MYSQL_PASSWORD: 0000
+      MYSQL_DATABASE: mydb
+      TZ: Asia/Seoul
+      LANG: C.UTF-8
+      LC_ALL: C.UTF-8
     volumes:
       - db_data:/var/lib/mysql
     networks:
       - app-network
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+      - --skip-character-set-client-handshake
 
 volumes:
   logs:
