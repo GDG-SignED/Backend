@@ -19,12 +19,12 @@ public class VideoWishlist {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "learning_video_id")
-    private LearningVideo learningVideo; // 찜한 학습 영상
+    private LearningVideo video; // 찜한 학습 영상
 
     @Builder
-    public VideoWishlist(Member member, LearningVideo learningVideo) {
+    public VideoWishlist(Member member, LearningVideo video) {
         this.member = member;
-        this.learningVideo = learningVideo;
+        this.video = video;
     }
 }
 

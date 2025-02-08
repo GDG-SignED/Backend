@@ -6,6 +6,7 @@ import com.gdg.backendse.dto.login.GoogleTokenDto;
 import com.gdg.backendse.dto.member.UserInfo;
 import com.gdg.backendse.jwt.TokenProvider;
 import com.gdg.backendse.repository.UserRepository;
+import com.gdg.backendse.util.NicknameGenerator;
 import com.google.gson.Gson;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -68,6 +69,7 @@ public class GoogleLoginService {
                         .email(userInfo.getEmail())
                         .name(userInfo.getName())
                         .profile(userInfo.getPictureUrl())
+                        .nickname(NicknameGenerator.generateRandomNickname())
                         .role(Role.ROLE_USER)
                         .build())
                 );
