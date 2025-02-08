@@ -33,6 +33,10 @@ public class Member {
     @Column(name = "remaining_tests")
     private int remainingTest;
 
+    //맞춘 테스트 개수
+    @Column(name = "test_correct_count", nullable = false)
+    private int testCorrectCount = 0;
+
     private String profile;
 
     @Enumerated(EnumType.STRING)
@@ -60,8 +64,22 @@ public class Member {
         this.email = email;
         this.loginMethod = loginMethod;
         this.remainingTest = remainingTest;
+        this.testCorrectCount = testCorrectCount;
         this.profile = profile;
         this.role = role;
+    }
+    // 사용자가 정답을 맞힐 때 호출하는 메서드
+    public void increaseCorrectCount() {
+        this.testCorrectCount++;
+    }
+
+    // 테스트 이용권 차감 메서드 (필요하면 추가)
+    public void useTest() {
+        if (this.remainingTest > 0) {
+            this.remainingTest--;
+        } else {
+            throw new IllegalStateException("테스트 이용권이 부족합니다.");
+        }
     }
 
 //    public boolean isGoogleLogin() {
