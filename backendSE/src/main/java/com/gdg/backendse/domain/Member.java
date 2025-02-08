@@ -41,9 +41,6 @@ public class Member {
     @OneToMany(mappedBy = "author", fetch = FetchType.LAZY) //회원:댓글_일대다
     private List<Comment> comments = new ArrayList<>();
 
-    @OneToMany(mappedBy = "author", fetch = FetchType.LAZY) //회원:검색어_일대다
-    private List<SearchKeyword> searchKeywords = new ArrayList<>();
-
     @OneToMany(mappedBy = "member", fetch = FetchType.LAZY) //회원:퀴즈_일대다
     private List<Test> tests = new ArrayList<>();
 
@@ -52,6 +49,9 @@ public class Member {
 
     @OneToMany(mappedBy = "member", fetch = FetchType.LAZY) // 회원:북마크_일대다
     private List<Bookmark> bookmarks = new ArrayList<>();
+
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true) //학습영상
+    private List<VideoWishlist> videoWishlist = new ArrayList<>();
 
     @Builder
     public Member(String name, String nickname, String email, LoginMethod loginMethod,int remainingTest, String profile, Role role){

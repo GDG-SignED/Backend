@@ -17,6 +17,9 @@ public class MemberController {
 
     @GetMapping("/test")
     public Member member(Principal principal){
+        if (principal == null) {
+            throw new RuntimeException("Principal is null. User is not authenticated.");
+        }
         return googleLoginService.test(principal);
     }
 }
