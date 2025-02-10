@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>수어 테스트</title>
+</head>
+<body>
+<h1>✨ AI 기반 수어 테스트 ✨</h1>
+<iframe src="http://localhost:5000" width="800" height="600"></iframe>
+
+<script>
+    function submitAnswer(answer) {
+        fetch("/test/submit", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded"
+            },
+            body: `memberId=1&answer=${answer}`
+        }).then(response => response.text())
+            .then(data => alert(data));
+    }
+</script>
+</body>
+</html>
