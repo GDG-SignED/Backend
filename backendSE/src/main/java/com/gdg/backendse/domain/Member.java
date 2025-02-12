@@ -33,10 +33,7 @@ public class Member {
     @Column(name = "remaining_tests")
     private int remainingTest;
 
-    //맞춘 테스트 개수
-    @Column(name = "test_correct_count", nullable = false)
-    private int testCorrectCount = 0;
-
+    @Column(name = "profile", length = 255)
     private String profile;
 
     @Enumerated(EnumType.STRING)
@@ -57,29 +54,25 @@ public class Member {
     @OneToMany(mappedBy = "member", fetch = FetchType.LAZY) // 회원:북마크_일대다
     private List<Bookmark> bookmarks = new ArrayList<>();
 
+    // 맞춘 문제 개수 필드
+    @Column(name = "correct_count", nullable = false)
+    private int correctCount = 0; // 기본값 0
+
     @Builder
-    public Member(String name, String nickname, String email, LoginMethod loginMethod,int remainingTest, String profile, Role role){
+    public Member(String name, String nickname, String email, LoginMethod loginMethod,int remainingTest, Role role, String profile){
         this.name = name;
         this.nickname = nickname;
         this.email = email;
         this.loginMethod = loginMethod;
         this.remainingTest = remainingTest;
-        this.testCorrectCount = testCorrectCount;
         this.profile = profile;
         this.role = role;
-    }
-    // 사용자가 정답을 맞힐 때 호출하는 메서드
-    public void increaseCorrectCount() {
-        this.testCorrectCount++;
+        this.correctCount = 0;
     }
 
-    // 테스트 이용권 차감 메서드 (필요하면 추가)
-    public void useTest() {
-        if (this.remainingTest > 0) {
-            this.remainingTest--;
-        } else {
-            throw new IllegalStateException("테스트 이용권이 부족합니다.");
-        }
+    // 맞춘 문제 개수 증가 메서드
+    public void incrementCorrectCount() {
+        this.correctCount++;
     }
 
 //    public boolean isGoogleLogin() {
