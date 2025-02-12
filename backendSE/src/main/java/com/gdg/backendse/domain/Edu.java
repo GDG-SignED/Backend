@@ -31,12 +31,17 @@ public class Edu {
     @OneToMany(mappedBy = "edu", fetch = FetchType.LAZY) // Edu 콘텐츠:북마크_일대다
     private List<Bookmark> bookmarks = new ArrayList<>();
 
+//    //검색어 기능을 위해 추가할 사항
+//    @OneToMany(mappedBy = "edu", fetch = FetchType.LAZY)
+//    private List<SearchKeyword> searchKeywords = new ArrayList<>();
 
     @Builder
-    public Edu(Long eduId, String title, String content, int views, String imagePath, String videoPath) {
+    public Edu(String title, String content, int views, String imagePath, String videoPath, List<Bookmark> bookmarks, List<SignWord> searchKeyword) {
         this.title = title;
         this.content = content;
         this.views = views;
         this.videoPath = videoPath;
+        this.bookmarks = bookmarks;
+//        this.searchKeywords = searchKeyword;
     }
 }
