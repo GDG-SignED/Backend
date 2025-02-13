@@ -33,7 +33,6 @@ public class Member {
     @Column(name = "remaining_tests")
     private int remainingTest;
 
-    @Column(name = "profile", length = 255)
     private String profile;
 
     @Enumerated(EnumType.STRING)
@@ -54,12 +53,15 @@ public class Member {
     @OneToMany(mappedBy = "member", fetch = FetchType.LAZY) // 회원:북마크_일대다
     private List<Bookmark> bookmarks = new ArrayList<>();
 
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true) //학습영상
+    private List<VideoWishlist> videoWishlist = new ArrayList<>();
+
     // 맞춘 문제 개수 필드
     @Column(name = "correct_count", nullable = false)
     private int correctCount = 0; // 기본값 0
 
     @Builder
-    public Member(String name, String nickname, String email, LoginMethod loginMethod,int remainingTest, Role role, String profile){
+    public Member(String name, String nickname, String email, LoginMethod loginMethod,int remainingTest, String profile, Role role){
         this.name = name;
         this.nickname = nickname;
         this.email = email;
