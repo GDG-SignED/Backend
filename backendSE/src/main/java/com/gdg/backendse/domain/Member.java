@@ -20,7 +20,7 @@ public class Member {
     @Column(nullable = false)
     private String name;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String nickname;
 
     @Column(nullable = false, unique = true)
@@ -41,6 +41,9 @@ public class Member {
     @OneToMany(mappedBy = "author", fetch = FetchType.LAZY) //회원:댓글_일대다
     private List<Comment> comments = new ArrayList<>();
 
+    @OneToMany(mappedBy = "author", fetch = FetchType.LAZY) //회원:검색어_일대다
+    private List<SearchKeyword> searchKeywords = new ArrayList<>();
+
     @OneToMany(mappedBy = "member", fetch = FetchType.LAZY) //회원:퀴즈_일대다
     private List<Test> tests = new ArrayList<>();
 
@@ -53,6 +56,10 @@ public class Member {
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true) //학습영상
     private List<VideoWishlist> videoWishlist = new ArrayList<>();
 
+    // 맞춘 문제 개수 필드
+    @Column(name = "correct_count", nullable = false)
+    private int correctCount = 0; // 기본값 0
+
     @Builder
     public Member(String name, String nickname, String email, LoginMethod loginMethod,int remainingTest, String profile, Role role){
         this.name = name;
@@ -62,6 +69,12 @@ public class Member {
         this.remainingTest = remainingTest;
         this.profile = profile;
         this.role = role;
+        this.correctCount = 0;
+    }
+
+    // 맞춘 문제 개수 증가 메서드
+    public void incrementCorrectCount() {
+        this.correctCount++;
     }
 
 //    public boolean isGoogleLogin() {
