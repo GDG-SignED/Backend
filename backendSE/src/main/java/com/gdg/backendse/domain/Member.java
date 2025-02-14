@@ -41,8 +41,8 @@ public class Member {
     @OneToMany(mappedBy = "author", fetch = FetchType.LAZY) //회원:댓글_일대다
     private List<Comment> comments = new ArrayList<>();
 
-    @OneToMany(mappedBy = "author", fetch = FetchType.LAZY) //회원:검색어_일대다
-    private List<SearchKeyword> searchKeywords = new ArrayList<>();
+//    @OneToMany(mappedBy = "author", fetch = FetchType.LAZY) //회원:검색어_일대다
+//    private List<SearchKeyword> searchKeywords = new ArrayList<>();
 
     @OneToMany(mappedBy = "member", fetch = FetchType.LAZY) //회원:퀴즈_일대다
     private List<Test> tests = new ArrayList<>();
