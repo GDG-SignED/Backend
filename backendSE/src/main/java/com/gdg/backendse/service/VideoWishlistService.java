@@ -3,6 +3,7 @@ package com.gdg.backendse.service;
 import com.gdg.backendse.domain.LearningVideo;
 import com.gdg.backendse.domain.Member;
 import com.gdg.backendse.domain.VideoWishlist;
+import com.gdg.backendse.dto.Edu.LearningVideoDTO;
 import com.gdg.backendse.repository.LearningVideoRepository;
 import com.gdg.backendse.repository.UserRepository;
 import com.gdg.backendse.repository.VideoWishlistRepository;
@@ -36,14 +37,17 @@ public class VideoWishlistService {
     }
 
     // 찜 목록 조회
-    public List<LearningVideo> getWishlist(Long memberId) {
+    public List<LearningVideoDTO> getWishlist(Long memberId) {
         Member member = memberRepository.findById(memberId)
                 .orElseThrow(() -> new IllegalArgumentException("회원이 존재하지 않습니다."));
 
-        return videoWishlistRepository.findByMember(member).stream()
-                .map(VideoWishlist::getVideo)
+        List<VideoWishlist> wishlist = videoWishlistRepository.findByMember(member);
+
+        return wishlist.stream()
+                .map(vw -> LearningVideoDTO.fromEntity(vw.getVideo())) // DTO 변환 적용
                 .collect(Collectors.toList());
     }
+
 
     // 찜 삭제
     public void removeWishlist(Long memberId, Long videoId) {
