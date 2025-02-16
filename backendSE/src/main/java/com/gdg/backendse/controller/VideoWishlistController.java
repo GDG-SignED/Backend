@@ -1,6 +1,6 @@
 package com.gdg.backendse.controller;
 
-import com.gdg.backendse.domain.LearningVideo;
+import com.gdg.backendse.dto.Edu.LearningVideoDTO;
 import com.gdg.backendse.service.VideoWishlistService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -23,11 +23,10 @@ public class VideoWishlistController {
 
     // 찜 목록 조회
     @GetMapping("/{memberId}")
-    public ResponseEntity<?> getWishlist(@PathVariable Long memberId) {
-        List<LearningVideo> wishlist = videoWishlistService.getWishlist(memberId);
+    public ResponseEntity<List<LearningVideoDTO>> getWishlist(@PathVariable Long memberId) {
+        List<LearningVideoDTO> wishlist = videoWishlistService.getWishlist(memberId);
         return ResponseEntity.ok(wishlist);
     }
-
     // 찜 삭제
     @DeleteMapping("/{memberId}/{videoId}")
     public ResponseEntity<?> removeWishlist(@PathVariable Long memberId, @PathVariable Long videoId) {
