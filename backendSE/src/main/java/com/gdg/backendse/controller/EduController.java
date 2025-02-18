@@ -18,14 +18,14 @@ import java.util.stream.Collectors;
 public class EduController {
     private final EduService eduService;
 
-    // ✅ 새 Edu 등록 (단어에 따라 자동 분류됨)
+    // 새 Edu 등록 (단어에 따라 자동 분류됨)
     @PostMapping
     public ResponseEntity<EduResponseDTO> createEdu(@RequestBody EduRequestDTO requestDTO) {
         Edu edu = eduService.createEdu(requestDTO);
         return ResponseEntity.ok(new EduResponseDTO(edu));
     }
 
-    // ✅ 카테고리별 Edu 데이터 조회 (String으로 받아 변환)
+    // 카테고리별 Edu 데이터 조회 (String으로 받아 변환)
     @GetMapping
     public ResponseEntity<List<EduResponseDTO>> getEduByCategory(@RequestParam String category) {
         EduCategory eduCategory;
@@ -43,7 +43,7 @@ public class EduController {
         return ResponseEntity.ok(responseDTOList);
     }
 
-    // ✅ 단어 검색 API
+    // 단어 검색 API
     @PostMapping("/search")
     public ResponseEntity<List<Edu>> searchEduByWord(@RequestBody EduRequestDTO eduRequestDTO) {
         List<Edu> results = eduService.searchByWord(eduRequestDTO.getWord()); // Edu의 word 검색
