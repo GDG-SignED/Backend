@@ -25,3 +25,13 @@ google:
   client:
     id: ${GOOGLE_CLIENT_ID}
     secret: ${GOOGLE_CLIENT_SECRET}
+
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"   # 모든 actuator 엔드포인트 노출
+  endpoint:
+    mappings:
+      enabled: true    # 매핑된 엔드포인트 확인 가능하도록 설정
