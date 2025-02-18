@@ -54,9 +54,6 @@ public class Member {
     @OneToMany(mappedBy = "member", fetch = FetchType.LAZY) // 회원:북마크_일대다
     private List<Bookmark> bookmarks = new ArrayList<>();
 
-    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true) //학습영상
-    private List<VideoWishlist> videoWishlist = new ArrayList<>();
-
     // 맞춘 문제 개수 필드
     @Column(name = "correct_count", nullable = false)
     private int correctCount = 0; // 기본값 0
