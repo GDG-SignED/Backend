@@ -36,6 +36,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorizeRequests -> authorizeRequests
                         .requestMatchers("/api/**").permitAll() // 인증 없이 접근 가능
                         .requestMatchers("/member/**").authenticated() // 인증 필요
+                        .requestMatchers("/", "/home").permitAll()
 //                        .requestMatchers("/bookmark/**", "/edu2/**", "/edu/**").permitAll() // 엔드포인트 허용 추가
                         .anyRequest().authenticated() // 그 외 모든 요청은 인증 필요
                 )
