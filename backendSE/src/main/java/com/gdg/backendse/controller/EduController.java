@@ -6,10 +6,12 @@ import com.gdg.backendse.dto.Edu.EduRequestDTO;
 import com.gdg.backendse.dto.Edu.EduResponseDTO;
 import com.gdg.backendse.service.EduService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @RestController
@@ -43,12 +45,24 @@ public class EduController {
         return ResponseEntity.ok(responseDTOList);
     }
 
-    // 단어 검색 API
+    // 단어 검색
     @PostMapping("/search")
-    public ResponseEntity<List<Edu>> searchEduByWord(@RequestBody EduRequestDTO eduRequestDTO) {
-        List<Edu> results = eduService.searchByWord(eduRequestDTO.getWord()); // Edu의 word 검색
+    public ResponseEntity<?> searchEduByWord(@RequestBody EduRequestDTO eduRequestDTO) {
+        String word = eduRequestDTO.getWord();
+
+        if (word == null || word.trim().isEmpty()) {
+            return ResponseEntity.badRequest().body(Map.of("message", "검색어를 입력해주세요."));
+        }
+
+        List<Edu> results = eduService.searchByWord(word);
+
+        if (results.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("message", "검색결과가 없습니다."));
+        }
+
         return ResponseEntity.ok(results);
     }
+
 
     //조회수 증가
     @GetMapping("/{id}")
