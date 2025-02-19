@@ -4,8 +4,6 @@ import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import java.util.List;
-import java.util.ArrayList;
 
 @Entity
 @Getter
@@ -13,35 +11,45 @@ import java.util.ArrayList;
 public class Edu {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "edu_id")
-    private int eduId;
-
-    @Column(name = "edu_title", nullable = false)
-    private String title;
-
-    @Column(name = "edu_content", nullable = false)
-    private String content; //내용
+    private Long id;
 
     @Column(nullable = false)
-    private int views; //조회수
+    private String title; // 교육 제목
 
-    @Column(name = "video_path")
-    private String videoPath;
+    @Column(nullable = false)
+    private String content; // 교육 내용
 
-    @OneToMany(mappedBy = "edu", fetch = FetchType.LAZY) // Edu 콘텐츠:북마크_일대다
-    private List<Bookmark> bookmarks = new ArrayList<>();
+    @Column(nullable = false)
+    private String word; // 학습할 단어
 
-//    //검색어 기능을 위해 추가할 사항
-//    @OneToMany(mappedBy = "edu", fetch = FetchType.LAZY)
-//    private List<SearchKeyword> searchKeywords = new ArrayList<>();
+    @Column(nullable = false)
+    private String videoUrl; // 학습 영상 URL
+
+    @Column(nullable = false)
+    private int views; // 조회수
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private EduCategory category; // 교육 카테고리
 
     @Builder
-    public Edu(String title, String content, int views, String imagePath, String videoPath, List<Bookmark> bookmarks, List<SignWord> searchKeyword) {
+    public Edu(String title, String content, String word, String videoUrl, int views, EduCategory category) {
         this.title = title;
         this.content = content;
+        this.word = word;
+        this.videoUrl = videoUrl;
         this.views = views;
-        this.videoPath = videoPath;
-        this.bookmarks = bookmarks;
-//        this.searchKeywords = searchKeyword;
+        this.category = category;
+    }
+
+    //  단어 기반 카테고리 자동 설정
+    public static EduCategory determineCategory(String word) {
+        if (word.matches("[ㄱ-ㅎ]")) { // 자음
+            return EduCategory.CONSONANT;
+        } else if (word.matches("[ㅏ-ㅣ]")) { // 모음
+            return EduCategory.VOWEL;
+        } else {
+            return EduCategory.BASIC_WORD; // 기본 단어
+        }
     }
 }
