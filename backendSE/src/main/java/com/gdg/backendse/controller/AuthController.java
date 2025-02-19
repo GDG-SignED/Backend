@@ -1,31 +1,32 @@
 package com.gdg.backendse.controller;
 
 import com.gdg.backendse.dto.login.GoogleTokenDto;
+import com.gdg.backendse.dto.login.GoogleLoginRequest;
 import com.gdg.backendse.service.GoogleLoginService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor(access = AccessLevel.PROTECTED)
-@RequestMapping("/api")
+@RequestMapping("/api/auth")
 @Slf4j
 public class AuthController {
 
     private final GoogleLoginService googleLoginService;
 
-    @GetMapping("/login/google")
-    public GoogleTokenDto googleCallback(@RequestParam(name = "code") String code) {
-        log.info("code -{}" , code);
-        String googleAccessToken = googleLoginService.getGoogleAccessToken(code);
-        return loginOrSignup(googleAccessToken);
-    }
+    @PostMapping("/google")
+    public GoogleTokenDto googleLogin(@RequestBody GoogleLoginRequest request) {
+        log.info("Google OAuth 인증 코드: {}", request.getCode());
 
-    private GoogleTokenDto loginOrSignup(String googleAccessToken) {
+        // Google Access Token 요청
+        String googleAccessToken = googleLoginService.getGoogleAccessToken(request.getCode());
+
+        // 로그인/회원가입 처리 후 Access Token 반환
         return googleLoginService.loginOrSignUp(googleAccessToken);
     }
 }
