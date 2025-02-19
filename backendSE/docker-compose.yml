@@ -37,7 +37,7 @@ services:
       LANG: C.UTF-8
       LC_ALL: C.UTF-8
     volumes:
-      - backendse_db_data:/var/lib/mysql
+      - db_data:/var/lib/mysql
     networks:
       - app-network
     command:
@@ -47,8 +47,9 @@ services:
 
 volumes:
   logs:
-  backendse_db_data:
-      external: true
+  db_data:
+#  backendse_db_data:
+#      external: true
 #  backendse_db_data:
 #    external: true
 #  backendse_logs:

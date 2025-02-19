@@ -36,6 +36,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorizeRequests -> authorizeRequests
                         .requestMatchers("/api/**").permitAll() // 인증 없이 접근 가능
                         .requestMatchers("/member/**").authenticated() // 인증 필요
+                        .requestMatchers("/", "/home").permitAll()
                         .anyRequest().authenticated() // 그 외 모든 요청은 인증 필요
                 )
                 .addFilterBefore(new JwtFilter(tokenProvider), UsernamePasswordAuthenticationFilter.class) // JWT 필터 추가
