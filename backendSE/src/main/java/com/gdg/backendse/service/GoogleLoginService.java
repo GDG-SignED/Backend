@@ -28,7 +28,7 @@ public class GoogleLoginService {
 
     @Value("${google.client.secret}")
     private String GOOGLE_CLIENT_SECRET;
-    private final String GOOGLE_REDIRECT_URI = "http://localhost:8080/api/login/google";
+    private final String GOOGLE_REDIRECT_URI = "http://localhost:5173/login-handler";
 
     private final UserRepository userRepository;
     private final TokenProvider tokenProvider;

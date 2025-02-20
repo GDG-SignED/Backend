@@ -26,6 +26,9 @@ public class AuthController {
         // Google Access Token 요청
         String googleAccessToken = googleLoginService.getGoogleAccessToken(request.getCode());
 
+        // ✅ 오류 수정: request.getCode() 사용
+        System.out.println("Received Google auth code: " + request.getCode());
+
         // 로그인/회원가입 처리 후 Access Token 반환
         return googleLoginService.loginOrSignUp(googleAccessToken);
     }
