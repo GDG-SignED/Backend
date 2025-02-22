@@ -38,7 +38,7 @@ services:
       LC_ALL: C.UTF-8
     volumes:
       - db_data:/var/lib/mysql
-      - ./initdb.sql:/docker-entrypoint-initdb.d/initdb.sql  # 초기 데이터 삽입
+#      - ./initdb.sql:/docker-entrypoint-initdb.d/initdb.sql  # 초기 데이터 삽입
     networks:
       - app-network
     command:
