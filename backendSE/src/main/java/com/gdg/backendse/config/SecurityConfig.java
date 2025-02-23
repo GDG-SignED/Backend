@@ -5,6 +5,7 @@ import com.gdg.backendse.jwt.TokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -36,8 +37,9 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorizeRequests -> authorizeRequests
                                 .requestMatchers("/api/**").permitAll() // 인증 없이 접근 가능
                                 .requestMatchers("/member/**").authenticated() // 인증 필요
-                                .requestMatchers("/api/auth/google").permitAll() // Google OAuth 인증 엔드포인트 허용
+                                .requestMatchers("/api/login/google","/api/auth/google").permitAll() // Google OAuth 인증 엔드포인트 허용
                                 .requestMatchers("/login-handler").permitAll() // OAuth 리디렉션 허용
+                                .requestMatchers(HttpMethod.DELETE, "/member/delete").authenticated()
 //                        .requestMatchers("/bookmark/**", "/edu2/**", "/edu/**").permitAll() // 엔드포인트 허용 추가
                                 .anyRequest().authenticated() // 그 외 모든 요청은 인증 필요
                 )

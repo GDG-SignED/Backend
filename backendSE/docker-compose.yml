@@ -37,7 +37,8 @@ services:
       LANG: C.UTF-8
       LC_ALL: C.UTF-8
     volumes:
-      - backendse_db_data:/var/lib/mysql
+      - db_data:/var/lib/mysql
+#      - ./initdb.sql:/docker-entrypoint-initdb.d/initdb.sql  # 초기 데이터 삽입
     networks:
       - app-network
     command:
@@ -47,12 +48,7 @@ services:
 
 volumes:
   logs:
-  backendse_db_data:
-      external: true
-#  backendse_db_data:
-#    external: true
-#  backendse_logs:
-#    external: true
+  db_data:
 
 networks:
   app-network:
