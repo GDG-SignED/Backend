@@ -19,7 +19,7 @@ public class BookmarkController {
     // Edu 찜하기
     @PostMapping("/{memberId}/{eduId}")
     public ResponseEntity<String> addBookmark(@PathVariable int memberId, @PathVariable Long eduId) {
-        log.info("📌 memberId: {}, eduId: {}", memberId, eduId);
+        log.info(" memberId: {}, eduId: {}", memberId, eduId);
         bookmarkService.addBookmark(memberId, eduId);
         return ResponseEntity.ok("찜 목록에 추가되었습니다.");
     }
