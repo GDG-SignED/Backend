@@ -39,6 +39,9 @@ public class Member {
     @Enumerated(EnumType.STRING)
     private Role role;
 
+    @Column(name = "google_access_token")  // 구글 OAuth2 액세스 토큰 저장
+    private String googleAccessToken;
+
     @OneToMany(mappedBy = "author", fetch = FetchType.LAZY) //회원:댓글_일대다
     private List<Comment> comments = new ArrayList<>();
 
@@ -59,7 +62,7 @@ public class Member {
     private int correctCount = 0; // 기본값 0
 
     @Builder
-    public Member(String name, String nickname, String email, LoginMethod loginMethod,int remainingTest, String profile, Role role){
+    public Member(String name, String nickname, String email, LoginMethod loginMethod,int remainingTest, String profile, Role role, String googleAccessToken){
         this.name = name;
         this.nickname = nickname;
         this.email = email;
@@ -68,6 +71,7 @@ public class Member {
         this.profile = profile;
         this.role = role;
         this.correctCount = 0;
+        this.googleAccessToken = googleAccessToken;
     }
 
     // 맞춘 문제 개수 증가 메서드
@@ -75,8 +79,16 @@ public class Member {
         this.correctCount++;
     }
 
+    public void updateGoogleAccessToken(String newToken) {
+        this.googleAccessToken = newToken;
+    }
+
 //    public boolean isGoogleLogin() {
 //        return this.loginMethod == LoginMethod.GOOGLE;
 //    }
+
+    public void updateNickname(String newNickname) {
+        this.nickname = newNickname;
+    }
 }
 
