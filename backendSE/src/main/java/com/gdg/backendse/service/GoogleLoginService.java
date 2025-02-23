@@ -5,7 +5,7 @@ import com.gdg.backendse.domain.Role;
 import com.gdg.backendse.dto.login.GoogleTokenDto;
 import com.gdg.backendse.dto.member.UserInfo;
 import com.gdg.backendse.jwt.TokenProvider;
-import com.gdg.backendse.repository.UserRepository;
+import com.gdg.backendse.repository.MemberRepository;
 import com.gdg.backendse.util.NicknameGenerator;
 import com.google.gson.Gson;
 import lombok.RequiredArgsConstructor;
@@ -28,9 +28,11 @@ public class GoogleLoginService {
 
     @Value("${google.client.secret}")
     private String GOOGLE_CLIENT_SECRET;
+    //프론트 연결시 사용
     private final String GOOGLE_REDIRECT_URI = "http://localhost:5173/login-handler";
+    //private final String GOOGLE_REDIRECT_URI = "http://localhost:8080/api/login/google";
 
-    private final UserRepository userRepository;
+    private final MemberRepository userRepository;
     private final TokenProvider tokenProvider;
 
     public String getGoogleAccessToken(String code) {
@@ -65,12 +67,17 @@ public class GoogleLoginService {
         }
 
         Member user = userRepository.findByEmail(userInfo.getEmail())
+                .map(member -> { // 기존 회원이면 토큰 업데이트
+                    member.updateGoogleAccessToken(googleAccessToken);
+                    return userRepository.save(member);
+                })
                 .orElseGet(() -> userRepository.save(Member.builder()
                         .email(userInfo.getEmail())
                         .name(userInfo.getName())
                         .profile(userInfo.getPictureUrl())
                         .nickname(NicknameGenerator.generateRandomNickname())
                         .role(Role.ROLE_USER)
+                        .googleAccessToken(googleAccessToken)
                         .build())
                 );
 
@@ -100,9 +107,21 @@ public class GoogleLoginService {
     }
 
     public Member test(Principal principal) {
-        Long id = Long.parseLong(principal.getName());
+        int id = Integer.parseInt(principal.getName());
 
         return userRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("유저를 찾을 수 없습니다."));
     }
+
+//    private final RestTemplate restTemplate = new RestTemplate();
+//
+//    // 구글 OAuth2 토큰 무효화 메서드 추가
+//    public void revokeGoogleToken(String accessToken) {
+//        if (accessToken == null || accessToken.isEmpty()) {
+//            return; // 저장된 토큰이 없으면 무효화할 필요 없음
+//        }
+//
+//        String revokeUrl = "https://oauth2.googleapis.com/revoke?token=" + accessToken;
+//        restTemplate.postForEntity(revokeUrl, null, String.class);
+//    }
 }
