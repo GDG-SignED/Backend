@@ -16,6 +16,11 @@ spring:
       hibernate:
         format_sql: false
         use_sql_comments: true
+    defer-datasource-initialization: false  # DataInitializer 사용 시 false로 변경
+
+  sql:
+    init:
+      mode: never  # 실행 비활성화 (DataInitializer 사용하기 위해)
 
 jwt:
   secret: ${JWT_SECRET}
@@ -25,7 +30,6 @@ google:
   client:
     id: ${GOOGLE_CLIENT_ID}
     secret: ${GOOGLE_CLIENT_SECRET}
-
 
 management:
   endpoints:

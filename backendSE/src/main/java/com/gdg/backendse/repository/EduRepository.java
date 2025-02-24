@@ -20,4 +20,6 @@ public interface EduRepository extends JpaRepository<Edu, Long> {
     @Transactional
     @Query("UPDATE Edu e SET e.views = e.views + 1 WHERE e.id = :eduId")
     void incrementViews(@Param("eduId") Long eduId);
+
+    boolean existsByWord(String word);
 }

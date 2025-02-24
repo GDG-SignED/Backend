@@ -54,22 +54,15 @@ public class MemberController {
         return ResponseEntity.ok("Nickname updated for user ID: " + memberId);
     }
 
-//    // Google OAuth2 로그인 사용자를 기반으로 회원 탈퇴 처리
-//    @DeleteMapping("/delete")
-//    public ResponseEntity<String> deleteUser(@AuthenticationPrincipal OAuth2User oauth2User) {
-//        userService.deleteUser(oauth2User);
-//        return ResponseEntity.ok("회원 탈퇴가 완료되었습니다.");
-//    }
-
     @DeleteMapping("/delete")
     public ResponseEntity<String> deleteUser(Authentication authentication) {
         if (authentication == null || !authentication.isAuthenticated()) {
             return ResponseEntity.status(401).body("로그인 상태가 아닙니다.");
         }
 
-        // 🔍 Principal이 ID 값(String)인지 확인
+        // Principal이 ID 값(String)인지 확인
         Object principal = authentication.getPrincipal();
-        System.out.println("🔍 [컨트롤러] Principal: " + principal);
+        System.out.println(" [컨트롤러] Principal: " + principal);
 
         if (!(principal instanceof String)) {
             return ResponseEntity.status(403).body("잘못된 인증 객체입니다: " + principal);
@@ -82,6 +75,5 @@ public class MemberController {
 
         return ResponseEntity.ok("회원 탈퇴가 완료되었습니다.");
     }
-
 
 }
